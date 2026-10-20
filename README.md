@@ -1,2 +1,2 @@
 # edmc-shopper
-EDMC plugin to plot an optimal route to shop for commodities
+Plugin for Elite Dangerous Market Connector to plot an optimal route to shop for commodities
