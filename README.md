@@ -10,3 +10,7 @@ This plugin is still being developed (in my free time), please do not use yet. C
 ## Features
 
 (WIP)
+
+## AI Usage Disclosure
+
+The one and only AI used in the development of this project is [JetBrains' Full Line Code Completion](https://blog.jetbrains.com/blog/2024/04/04/full-line-code-completion-in-jetbrains-ides-all-you-need-to-know/) (warning: flash-bang).
