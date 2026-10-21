@@ -1,3 +1,6 @@
+# noinspection unresolved-references
+from config import appname
+from logging import Logger, getLogger
 from tkinter import Frame, Label
 
 from semantic_version import Version
@@ -26,12 +29,13 @@ class Shopper:
         self.plugin_name: str = plugin_name
         self.version: Version = version
         self.ui: UI = UI(self)
+        self.logger: Logger = getLogger(f"{appname}.{self.plugin_name}")
 
     def plugin_start(self, plugin_dir: str):
-        pass
+        self.logger.debug(f"Starting plugin {self.plugin_name} from {plugin_dir}")
 
     def plugin_stop(self):
-        pass
+        self.logger.debug(f"Stopping plugin {self.plugin_name}")
 
 
 this = Shopper(PLUGIN_NAME, Version(PLUGIN_VERSION))
