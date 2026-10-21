@@ -1,6 +1,6 @@
 # Roadmap
 
-## Table of contents
+## Index
 
 - [Configuration](#configuration)
 - [Fleet Carrier](#fleet-carrier)
