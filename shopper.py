@@ -25,7 +25,7 @@ class Shopper:
     def plugin_stop(self):
         self.logger.debug(f"Stopping plugin {self.plugin_name}")
 
-    def journal_entry(self, cmdr, system, station, entry, state):
+    def journal_entry(self, cmdr, is_beta, system, station, entry, state):
         pass
 
     def capi_fleet_carrier(self, data):

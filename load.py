@@ -31,8 +31,8 @@ def prefs_changed(cmdr: str, is_beta: bool):
     this.preferences.save()
 
 
-def journal_entry(cmdr: str, system, station, entry, state):
-    this.journal_entry(cmdr, system, station, entry, state)
+def journal_entry(cmdr: str, is_beta, system, station, entry, state):
+    this.journal_entry(cmdr, is_beta, system, station, entry, state)
 
 
 # noinspection SpellCheckingInspection
