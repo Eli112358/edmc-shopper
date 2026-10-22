@@ -1,9 +1,5 @@
 from tkinter import Frame
 
-# noinspection unresolved-references,pep8-naming
-import myNotebook as nb
-# noinspection unresolved-references
-from config import appname, config
 from semantic_version import Version
 
 from shopper import Shopper

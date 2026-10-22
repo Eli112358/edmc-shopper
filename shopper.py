@@ -1,5 +1,7 @@
 from logging import Logger, getLogger
 
+# noinspection unresolved-references
+from config import appname
 from semantic_version import Version
 
 from preferences import Preferences

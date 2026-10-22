@@ -1,6 +1,9 @@
 from tkinter import Frame, Label
 
-from shopper import Shopper
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from shopper import Shopper
 
 
 class UI:

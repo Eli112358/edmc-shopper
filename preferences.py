@@ -1,8 +1,15 @@
-from functools import partial
 from tkinter import StringVar, Frame
-from tkinter.font import Font, nametofont
 
-from shopper import Shopper
+# noinspection unresolved-references,pep8-naming
+import myNotebook as nb
+# noinspection unresolved-references
+from config import config
+from functools import partial
+from tkinter.font import Font, nametofont
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from shopper import Shopper
 
 
 class Preferences:
