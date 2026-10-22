@@ -1,0 +1,18 @@
+from tkinter import Frame, Label
+
+from load import Shopper
+
+
+class UI:
+    frame: Frame
+
+    def __init__(self, shopper: Shopper):
+        self.shopper = shopper
+
+    def get_frame(self, parent: Frame) -> Frame:
+        self.frame = Frame(parent)
+        self.frame.grid_configure()
+        message_text: str = f"Shopper v{self.shopper.version} loaded"
+        message = Label(self.frame, text=message_text)
+        message.grid()
+        return self.frame
