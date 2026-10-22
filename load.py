@@ -5,6 +5,7 @@ from tkinter import Frame, Label, StringVar
 import myNotebook as nb
 # noinspection unresolved-references
 from config import appname, config
+from functools import partial
 from semantic_version import Version
 from tkinter.font import Font, nametofont
 
@@ -30,6 +31,7 @@ class UI:
 class Preferences:
     frame: nb.Frame
     mode_vars: dict[str, StringVar]
+    rc_api_key_var: StringVar
 
     def __init__(self, shopper: Shopper):
         self.shopper = shopper
@@ -46,7 +48,21 @@ class Preferences:
         self.mode_vars["general-trade"] = StringVar()
         self.mode_vars["general-trade"].set(config.get_str("edmc-shopper_mode_general-trade"))
         nb.Checkbutton(self.frame, text="General Trade", variable=self.mode_vars["general-trade"], onvalue="Yes", offvalue="No").grid(row=row, column=0)
+        row += 1
+        nb.Label(self.frame, text="Colonization", font=section_font).grid(row=row, column=0)
+        row += 1
+        nb.Label(self.frame, text="Raven Colonial API Key").grid(row=row, column=0)
+        self.rc_api_key_var: StringVar = StringVar()
+        self.rc_api_key_var.set(config.get_str("edmc-shopper_raven-colonial_api-key"))
+        rc_api_key: nb.EntryMenu = nb.EntryMenu(self.frame, textvariable=self.rc_api_key_var, show="*")
+        rc_api_key.grid(row=row, column=1)
+        rc_api_key_toggle = partial(self._toggle_api_key_visibility, rc_api_key)
+        nb.Button(self.frame, text="👁", width=3, command=rc_api_key_toggle).grid(row=row, column=2)
         return self.frame
+
+    def _toggle_api_key_visibility(self, entry: nb.EntryMenu):
+        chars = ["", "*"]
+        entry.config(show=chars[1 - chars.index(entry.cget("show"))])
 
     def save(self):
         modes: dict[str, str] = {key: var.get() for key, var in self.mode_vars.items()}
