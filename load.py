@@ -91,7 +91,7 @@ this = Shopper(PLUGIN_NAME, Version(PLUGIN_VERSION))
 
 def plugin_start3(plugin_dir: str):
     this.plugin_start(plugin_dir)
-    return this.plugin_name
+    return this.plugin_name.title()
 
 
 def plugin_stop():
