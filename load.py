@@ -45,15 +45,15 @@ class Preferences:
         nb.Label(self.frame, text="Modes", font=section_font).grid(row=row, column=0)
         row += 1
         self.mode_vars: dict[str, StringVar] = {}
-        self.mode_vars["general-trade"] = StringVar()
-        self.mode_vars["general-trade"].set(config.get_str("edmc-shopper_mode_general-trade"))
-        nb.Checkbutton(self.frame, text="General Trade", variable=self.mode_vars["general-trade"], onvalue="Yes", offvalue="No").grid(row=row, column=0)
+        self.mode_vars["general_trade"] = StringVar()
+        self.mode_vars["general_trade"].set(config.get_str("edmc_shopper_mode_general_trade"))
+        nb.Checkbutton(self.frame, text="General Trade", variable=self.mode_vars["general_trade"], onvalue="Yes", offvalue="No").grid(row=row, column=0)
         row += 1
         nb.Label(self.frame, text="Colonization", font=section_font).grid(row=row, column=0)
         row += 1
         nb.Label(self.frame, text="Raven Colonial API Key").grid(row=row, column=0)
         self.rc_api_key_var: StringVar = StringVar()
-        self.rc_api_key_var.set(config.get_str("edmc-shopper_raven-colonial_api-key"))
+        self.rc_api_key_var.set(config.get_str("edmc_shopper_raven_colonial_api_key"))
         rc_api_key: nb.EntryMenu = nb.EntryMenu(self.frame, textvariable=self.rc_api_key_var, show="*")
         rc_api_key.grid(row=row, column=1)
         rc_api_key_toggle = partial(self._toggle_api_key_visibility, rc_api_key)
@@ -67,7 +67,7 @@ class Preferences:
     def save(self):
         modes: dict[str, str] = {key: var.get() for key, var in self.mode_vars.items()}
         for mode, value in modes.items():
-            config.set_str(f"edmc-shopper_mode_{mode}", value)
+            config.set_str(f"edmc_shopper_mode_{mode}", value)
         self.shopper.logger.debug("Preferences saved")
 
 
