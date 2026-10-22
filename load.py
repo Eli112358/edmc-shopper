@@ -74,6 +74,8 @@ class Preferences:
 
 
 class Shopper:
+    plugin_dir: str
+
     def __init__(self, plugin_name: str, version: Version):
         self.plugin_name: str = plugin_name
         self.version: Version = version
@@ -82,6 +84,7 @@ class Shopper:
         self.ui: UI = UI(self)
 
     def plugin_start(self, plugin_dir: str):
+        self.plugin_dir = plugin_dir
         self.logger.debug(f"Starting plugin {self.plugin_name} from {plugin_dir}")
 
     def plugin_stop(self):
