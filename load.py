@@ -68,6 +68,8 @@ class Preferences:
         modes: dict[str, str] = {key: var.get() for key, var in self.mode_vars.items()}
         for mode, value in modes.items():
             config.set_str(f"edmc_shopper_mode_{mode}", value)
+        rc_api_key: str = self.rc_api_key_var.get()
+        config.set_str("edmc_shopper_raven_colonial_api_key", rc_api_key)
         self.shopper.logger.debug("Preferences saved")
 
 
