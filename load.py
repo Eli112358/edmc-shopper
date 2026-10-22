@@ -1,6 +1,8 @@
 from logging import Logger, getLogger
 from tkinter import Frame, Label
 
+# noinspection unresolved-references,pep8-naming
+import myNotebook as nb
 # noinspection unresolved-references
 from config import appname
 from semantic_version import Version
@@ -25,14 +27,14 @@ class UI:
 
 
 class Preferences:
-    frame: Frame
+    frame: nb.Frame
 
     def __init__(self, shopper: Shopper):
         self.shopper = shopper
 
-    def get_frame(self, parent: Frame) -> Frame:
-        self.frame = Frame(parent)
-        self.frame.grid_configure()
+    def get_frame(self, parent: Frame) -> nb.Frame:
+        self.frame = nb.Frame(parent)
+        self.frame.columnconfigure(0, weight=0)
         return self.frame
 
     def save(self):
