@@ -1,6 +1,6 @@
 from tkinter import Frame, Label
 
-from load import Shopper
+from shopper import Shopper
 
 
 class UI:

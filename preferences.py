@@ -2,7 +2,7 @@ from functools import partial
 from tkinter import StringVar, Frame
 from tkinter.font import Font, nametofont
 
-from load import Shopper
+from shopper import Shopper
 
 
 class Preferences:
