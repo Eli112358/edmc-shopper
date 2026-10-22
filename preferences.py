@@ -11,6 +11,10 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from shopper import Shopper
 
+MODES: list[str] = [
+    "general_trade",
+]
+
 
 class Preferences:
     frame: nb.Frame
@@ -28,11 +32,12 @@ class Preferences:
         row: int = 0
         nb.Label(self.frame, text="Modes", font=section_font).grid(row=row, column=0)
         row += 1
-        self.mode_vars: dict[str, StringVar] = {}
-        self.mode_vars["general_trade"] = StringVar()
-        self.mode_vars["general_trade"].set(config.get_str("edmc_shopper_mode_general_trade"))
-        nb.Checkbutton(self.frame, text="General Trade", variable=self.mode_vars["general_trade"], onvalue="Yes", offvalue="No").grid(row=row, column=0)
-        row += 1
+        self.mode_vars: dict[str, StringVar] = {mode: StringVar() for mode in MODES}
+        for mode, variable in self.mode_vars.items():
+            variable.set(config.get_str(f"edmc_shopper_mode_{mode}"))
+            text: str = mode.replace("_", " ").title()
+            nb.Checkbutton(self.frame, text=text, variable=variable, onvalue="Yes", offvalue="No").grid(row=row, column=0)
+            row += 1
         nb.Label(self.frame, text="Colonization", font=section_font).grid(row=row, column=0)
         row += 1
         nb.Label(self.frame, text="Raven Colonial API Key").grid(row=row, column=0)
