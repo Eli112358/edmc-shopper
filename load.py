@@ -1,11 +1,12 @@
 from logging import Logger, getLogger
-from tkinter import Frame, Label
+from tkinter import Frame, Label, StringVar
 
 # noinspection unresolved-references,pep8-naming
 import myNotebook as nb
 # noinspection unresolved-references
-from config import appname
+from config import appname, config
 from semantic_version import Version
+from tkinter.font import Font, nametofont
 
 PLUGIN_NAME = "shopper"
 PLUGIN_VERSION = "0.0.0"
@@ -28,6 +29,7 @@ class UI:
 
 class Preferences:
     frame: nb.Frame
+    mode_vars: dict[str, StringVar]
 
     def __init__(self, shopper: Shopper):
         self.shopper = shopper
@@ -35,9 +37,21 @@ class Preferences:
     def get_frame(self, parent: Frame) -> nb.Frame:
         self.frame = nb.Frame(parent)
         self.frame.columnconfigure(0, weight=0)
+        section_font: Font = nametofont("TkDefaultFont").copy()
+        section_font.configure(weight="bold")
+        row: int = 0
+        nb.Label(self.frame, text="Modes", font=section_font).grid(row=row, column=0)
+        row += 1
+        self.mode_vars: dict[str, StringVar] = {}
+        self.mode_vars["general-trade"] = StringVar()
+        self.mode_vars["general-trade"].set(config.get_str("edmc-shopper_mode_general-trade"))
+        nb.Checkbutton(self.frame, text="General Trade", variable=self.mode_vars["general-trade"], onvalue="Yes", offvalue="No").grid(row=row, column=0)
         return self.frame
 
     def save(self):
+        modes: dict[str, str] = {key: var.get() for key, var in self.mode_vars.items()}
+        for mode, value in modes.items():
+            config.set_str(f"edmc-shopper_mode_{mode}", value)
         self.shopper.logger.debug("Preferences saved")
 
 
