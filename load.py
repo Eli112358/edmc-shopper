@@ -93,6 +93,9 @@ class Shopper:
     def journal_entry(self, cmdr, system, station, entry, state):
         pass
 
+    def capi_fleet_carrier(self, data):
+        pass
+
 
 this = Shopper(PLUGIN_NAME, Version(PLUGIN_VERSION))
 
@@ -120,3 +123,8 @@ def prefs_changed(cmdr: str, is_beta: bool):
 
 def journal_entry(cmdr: str, system, station, entry, state):
     this.journal_entry(cmdr, system, station, entry, state)
+
+
+# noinspection SpellCheckingInspection
+def capi_fleetcarrier(data):
+    this.capi_fleet_carrier(data)
