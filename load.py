@@ -90,6 +90,9 @@ class Shopper:
     def plugin_stop(self):
         self.logger.debug(f"Stopping plugin {self.plugin_name}")
 
+    def journal_entry(self, cmdr, system, station, entry, state):
+        pass
+
 
 this = Shopper(PLUGIN_NAME, Version(PLUGIN_VERSION))
 
@@ -113,3 +116,7 @@ def plugin_prefs(parent: Frame, cmdr: str, is_beta: bool):
 
 def prefs_changed(cmdr: str, is_beta: bool):
     this.preferences.save()
+
+
+def journal_entry(cmdr: str, system, station, entry, state):
+    this.journal_entry(cmdr, system, station, entry, state)
