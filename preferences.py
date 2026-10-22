@@ -1,4 +1,4 @@
-from tkinter import StringVar, Frame
+from tkinter import StringVar, Frame, BooleanVar
 
 # noinspection unresolved-references,pep8-naming
 import myNotebook as nb
@@ -32,11 +32,11 @@ class Preferences:
         row: int = 0
         nb.Label(self.frame, text="Modes", font=section_font).grid(row=row, column=0)
         row += 1
-        self.mode_vars: dict[str, StringVar] = {mode: StringVar() for mode in MODES}
+        self.mode_vars: dict[str, BooleanVar] = {mode: BooleanVar() for mode in MODES}
         for mode, variable in self.mode_vars.items():
-            variable.set(config.get_str(f"edmc_shopper_mode_{mode}"))
+            variable.set(config.get_bool(f"edmc_shopper_mode_{mode}"))
             text: str = mode.replace("_", " ").title()
-            nb.Checkbutton(self.frame, text=text, variable=variable, onvalue="Yes", offvalue="No").grid(row=row, column=0)
+            nb.Checkbutton(self.frame, text=text, variable=variable, onvalue=True, offvalue=False).grid(row=row, column=0)
             row += 1
         nb.Label(self.frame, text="Colonization", font=section_font).grid(row=row, column=0)
         row += 1
@@ -54,9 +54,9 @@ class Preferences:
         entry.config(show=chars[1 - chars.index(entry.cget("show"))])
 
     def save(self):
-        modes: dict[str, str] = {key: var.get() for key, var in self.mode_vars.items()}
+        modes: dict[str, bool] = {key: variable.get() for key, variable in self.mode_vars.items()}
         for mode, value in modes.items():
-            config.set_str(f"edmc_shopper_mode_{mode}", value)
+            config.set(f"edmc_shopper_mode_{mode}", value)
         rc_api_key: str = self.rc_api_key_var.get()
-        config.set_str("edmc_shopper_raven_colonial_api_key", rc_api_key)
+        config.set("edmc_shopper_raven_colonial_api_key", rc_api_key)
         self.shopper.logger.debug("Preferences saved")
