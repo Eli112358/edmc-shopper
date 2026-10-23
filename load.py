@@ -1,13 +1,16 @@
 from tkinter import Frame
 
+# noinspection unresolved-references,pep8-naming
+import myNotebook as nb
 from semantic_version import Version
+from typing import Callable
 
-from shopper import Shopper
+from shopper import Shopper, JsonData
 
 PLUGIN_NAME = "shopper"
 PLUGIN_VERSION = "0.0.0"
 
-this = Shopper(PLUGIN_NAME, Version(PLUGIN_VERSION))
+this: Shopper = Shopper(PLUGIN_NAME, Version(PLUGIN_VERSION))
 
 
 def plugin_start3(plugin_dir: str):
@@ -31,10 +34,10 @@ def prefs_changed(cmdr: str, is_beta: bool):
     this.preferences.save(cmdr, is_beta)
 
 
-def journal_entry(cmdr: str, is_beta, system, station, entry, state):
+def journal_entry(cmdr: str, is_beta: bool, system: str, station: str, entry: JsonData, state: JsonData):
     this.journal_entry(cmdr, is_beta, system, station, entry, state)
 
 
 # noinspection SpellCheckingInspection
-def capi_fleetcarrier(data):
+def capi_fleetcarrier(data: JsonData):
     this.capi_fleet_carrier(data)

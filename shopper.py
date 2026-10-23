@@ -7,6 +7,8 @@ from semantic_version import Version
 from preferences import Preferences
 from ui import UI
 
+JsonData = dict[str, object]
+
 
 class Shopper:
     plugin_dir: str
@@ -25,8 +27,8 @@ class Shopper:
     def stop(self):
         self.logger.debug(f"Stopping plugin {self.plugin_name}")
 
-    def journal_entry(self, cmdr, is_beta, system, station, entry, state):
+    def journal_entry(self, cmdr: str, is_beta: bool, system: str, station: str, entry: JsonData, state: JsonData):
         pass
 
-    def capi_fleet_carrier(self, data):
+    def capi_fleet_carrier(self, data: JsonData):
         pass
