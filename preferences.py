@@ -49,7 +49,8 @@ class Preferences:
         nb.Button(self.frame, text="👁", width=3, command=rc_api_key_toggle).grid(row=row, column=2)
         return self.frame
 
-    def _toggle_api_key_visibility(self, entry: nb.EntryMenu):
+    @staticmethod
+    def _toggle_api_key_visibility(entry: nb.EntryMenu):
         chars = ["", "*"]
         entry.config(show=chars[1 - chars.index(entry.cget("show"))])
 
