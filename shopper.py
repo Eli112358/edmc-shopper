@@ -23,6 +23,7 @@ class Shopper:
     def start(self, plugin_dir: str):
         self.plugin_dir = plugin_dir
         self.logger.debug(f"Starting plugin {self.plugin_name} from {plugin_dir}")
+        return self.plugin_name.title()
 
     def stop(self):
         self.logger.debug(f"Stopping plugin {self.plugin_name}")
