@@ -24,11 +24,11 @@ def plugin_app(parent: Frame):
 
 
 def plugin_prefs(parent: Frame, cmdr: str, is_beta: bool):
-    return this.preferences.get_frame(parent)
+    return this.preferences.get_frame(parent, cmdr, is_beta)
 
 
 def prefs_changed(cmdr: str, is_beta: bool):
-    this.preferences.save()
+    this.preferences.save(cmdr, is_beta)
 
 
 def journal_entry(cmdr: str, is_beta, system, station, entry, state):

@@ -24,7 +24,7 @@ class Preferences:
     def __init__(self, shopper: Shopper):
         self.shopper = shopper
 
-    def get_frame(self, parent: Frame) -> nb.Frame:
+    def get_frame(self, parent: Frame, cmdr: str, is_beta: bool) -> nb.Frame:
         self.frame = nb.Frame(parent)
         self.frame.columnconfigure(0, weight=0)
         section_font: Font = nametofont("TkDefaultFont").copy()
@@ -54,7 +54,7 @@ class Preferences:
         chars = ["", "*"]
         entry.config(show=chars[1 - chars.index(entry.cget("show"))])
 
-    def save(self):
+    def save(self, cmdr: str, is_beta: bool):
         modes: dict[str, bool] = {key: variable.get() for key, variable in self.mode_vars.items()}
         for mode, value in modes.items():
             config.set(f"edmc_shopper_mode_{mode}", value)
