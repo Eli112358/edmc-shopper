@@ -5,7 +5,7 @@ import myNotebook as nb
 from semantic_version import Version
 from typing import Callable
 
-from shopper import Shopper, JsonData
+from shopper.shopper import Shopper, JsonData
 
 PLUGIN_NAME = "shopper"
 PLUGIN_VERSION = "0.0.0"

@@ -4,8 +4,8 @@ from logging import Logger, getLogger
 from config import appname
 from semantic_version import Version
 
-from preferences import Preferences
-from ui import UI
+from .preferences import Preferences
+from .ui import UI
 
 JsonData = dict[str, object]
 
