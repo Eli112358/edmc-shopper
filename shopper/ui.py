@@ -1,3 +1,4 @@
+from logging import Logger
 from tkinter import Frame, Label
 
 from typing import TYPE_CHECKING
@@ -11,6 +12,7 @@ class UI:
 
     def __init__(self, shopper: Shopper):
         self.shopper = shopper
+        self.logger: Logger = shopper.logger.getChild("UI")
 
     def get_frame(self, parent: Frame) -> Frame:
         self.frame = Frame(parent)

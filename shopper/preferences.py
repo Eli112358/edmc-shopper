@@ -1,3 +1,4 @@
+from logging import Logger
 from tkinter import StringVar, Frame, BooleanVar
 
 # noinspection unresolved-references,pep8-naming
@@ -23,6 +24,7 @@ class Preferences:
 
     def __init__(self, shopper: Shopper):
         self.shopper = shopper
+        self.logger: Logger = shopper.logger.getChild("preferences")
 
     def get_frame(self, parent: Frame, cmdr: str, is_beta: bool) -> nb.Frame:
         self.frame = nb.Frame(parent)
@@ -60,4 +62,4 @@ class Preferences:
             config.set(f"edmc_shopper_mode_{mode}", value)
         rc_api_key: str = self.rc_api_key_var.get()
         config.set("edmc_shopper_raven_colonial_api_key", rc_api_key)
-        self.shopper.logger.debug("Preferences saved")
+        self.logger.debug("Preferences saved")
