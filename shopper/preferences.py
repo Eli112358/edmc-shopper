@@ -1,4 +1,5 @@
 from logging import Logger
+from pathlib import Path
 from tkinter import StringVar, Frame, BooleanVar
 
 # noinspection unresolved-references,pep8-naming
@@ -8,6 +9,8 @@ from config import config
 from functools import partial
 from tkinter.font import Font, nametofont
 from typing import TYPE_CHECKING
+
+CONFIG_NAME_SEPARATOR: str = "_"
 
 if TYPE_CHECKING:
     from shopper import Shopper
@@ -24,7 +27,11 @@ class Preferences:
 
     def __init__(self, shopper: Shopper):
         self.shopper = shopper
+        self._config_base: Path = Path(self.shopper.plugin_name.lower())
         self.logger: Logger = shopper.logger.getChild("preferences")
+
+    def get_name(self, keys: Path) -> str:
+        return str(self._config_base / keys.relative_to(self._config_base)).replace("/", CONFIG_NAME_SEPARATOR)
 
     def get_frame(self, parent: Frame, cmdr: str, is_beta: bool) -> nb.Frame:
         self.frame = nb.Frame(parent)
@@ -35,8 +42,9 @@ class Preferences:
         nb.Label(self.frame, text="Modes", font=section_font).grid(row=row, column=0)
         row += 1
         self.mode_vars: dict[str, BooleanVar] = {mode: BooleanVar() for mode in MODES}
+        modes_path = self._config_base / "mode"
         for mode, variable in self.mode_vars.items():
-            variable.set(config.get_bool(f"edmc_shopper_mode_{mode}"))
+            variable.set(config.get_bool(self.get_name(modes_path / mode)))
             text: str = mode.replace("_", " ").title()
             nb.Checkbutton(self.frame, text=text, variable=variable, onvalue=True, offvalue=False).grid(row=row, column=0)
             row += 1
@@ -44,7 +52,8 @@ class Preferences:
         row += 1
         nb.Label(self.frame, text="Raven Colonial API Key").grid(row=row, column=0)
         self.rc_api_key_var: StringVar = StringVar()
-        self.rc_api_key_var.set(config.get_str("edmc_shopper_raven_colonial_api_key"))
+        raven_colonial = self._config_base / "raven_colonial"
+        self.rc_api_key_var.set(config.get_str(self.get_name(raven_colonial / "api_key")))
         rc_api_key: nb.EntryMenu = nb.EntryMenu(self.frame, textvariable=self.rc_api_key_var, show="*")
         rc_api_key.grid(row=row, column=1)
         rc_api_key_toggle = partial(self._toggle_api_key_visibility, rc_api_key)
@@ -58,8 +67,10 @@ class Preferences:
 
     def save(self, cmdr: str, is_beta: bool):
         modes: dict[str, bool] = {key: variable.get() for key, variable in self.mode_vars.items()}
+        modes_path = self._config_base / "mode"
         for mode, value in modes.items():
-            config.set(f"edmc_shopper_mode_{mode}", value)
+            config.set(self.get_name(modes_path / mode), value)
+        raven_colonial = self._config_base / "raven_colonial"
         rc_api_key: str = self.rc_api_key_var.get()
-        config.set("edmc_shopper_raven_colonial_api_key", rc_api_key)
+        config.set(self.get_name(raven_colonial / "api_key"), rc_api_key)
         self.logger.debug("Preferences saved")
