@@ -1,0 +1,3 @@
+[submodule "lib/h2"]
+	path = lib/h2
+	url = git@github.com:python-hyper/h2.git
