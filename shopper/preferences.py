@@ -5,7 +5,7 @@ from functools import partial
 # noinspection unresolved-references
 from myNotebook import (
     Button as nbButton,
-    Checkbuton as nbCheckbutton,
+    Checkbutton as nbCheckbutton,
     EntryMenu as nbEntryMenu,
     Frame as nbFrame,
     Label as nbLabel,
