@@ -1,4 +1,5 @@
 from logging import Logger, getLogger
+from pathlib import Path
 
 # noinspection unresolved-references
 from config import appname
@@ -11,7 +12,7 @@ JsonData = dict[str, object]
 
 
 class Shopper:
-    plugin_dir: str
+    plugin_dir: Path
 
     def __init__(self, plugin_name: str, version: Version):
         self.plugin_name: str = plugin_name
@@ -23,6 +24,7 @@ class Shopper:
     def start(self, plugin_dir: str):
         self.plugin_dir = plugin_dir
         self.logger.debug(f"Starting plugin {self.plugin_name} from {plugin_dir}")
+        self.plugin_dir = Path(plugin_dir)
         return self.plugin_name.title()
 
     def stop(self):
