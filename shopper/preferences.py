@@ -36,9 +36,7 @@ class Preferences:
         self._config_base: Path = Path(self.shopper.plugin_name.lower())
         self.logger: Logger = shopper.logger.getChild("preferences")
 
-    def get_name(self, keys: Path) -> str:
-        return str(self._config_base / keys.relative_to(self._config_base)).replace("/", CONFIG_NAME_SEPARATOR)
-
+    # noinspection unused-parameter
     def get_frame(self, parent: Frame, cmdr: str, is_beta: bool) -> nbFrame:
         self.frame = nbFrame(parent)
         self.frame.columnconfigure(0, weight=0)
@@ -71,6 +69,7 @@ class Preferences:
         chars = ["", "*"]
         entry.config(show=chars[1 - chars.index(entry.cget("show"))])
 
+    # noinspection unused-parameter
     def save(self, cmdr: str, is_beta: bool):
         modes: dict[str, bool] = {key: variable.get() for key, variable in self.mode_vars.items()}
         modes_path = self._config_base / "mode"
