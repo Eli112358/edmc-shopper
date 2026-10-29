@@ -1,10 +1,9 @@
 from logging import Logger, getLogger
 from pathlib import Path
 
-# noinspection unresolved-references
-from config import appname
 from semantic_version import Version
 
+from .config import Config
 from .preferences import Preferences
 from .ui import UI
 
@@ -17,7 +16,7 @@ class Shopper:
     def __init__(self, plugin_name: str, version: Version):
         self.plugin_name: str = plugin_name
         self.version: Version = version
-        self.logger: Logger = getLogger(f"{appname}.{self.plugin_name}")
+        self.logger: Logger = getLogger(f"{Config.app_name()}.{self.plugin_name}")
         self.preferences = Preferences(self)
         self.ui: UI = UI(self)
 

@@ -5,7 +5,7 @@ from tkinter import Variable, BooleanVar, IntVar, StringVar
 from enum import Enum
 
 # noinspection unresolved-references
-from config import config as edmc_config
+from config import appname as edmc_app_name, config as edmc_config
 
 from load import PLUGIN_NAME
 
@@ -96,6 +96,10 @@ class Config:
     GENERAL_TRADE = GeneralTrade
     RAVEN_COLONIAL = RavenColonial
     STAR_MAP = StarMap
+
+    @classmethod
+    def app_name(cls):
+        return edmc_app_name
 
     @classmethod
     def save_all(cls):
