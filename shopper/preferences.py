@@ -13,7 +13,7 @@ from typing import TYPE_CHECKING
 CONFIG_NAME_SEPARATOR: str = "_"
 
 if TYPE_CHECKING:
-    from shopper import Shopper
+    from .shopper import Shopper
 
 MODES: list[str] = [
     "general_trade",
